@@ -315,7 +315,7 @@ int SslBox_t::GetPlaintext (char *buf, int bufsize)
 {
 	if (!SSL_is_init_finished (pSSL)) {
 		int e = bIsServer ? SSL_accept (pSSL) : SSL_connect (pSSL);
-		if (e != 1) {
+		if (e < 0) {
 			int er = SSL_get_error (pSSL, e);
 			if (er != SSL_ERROR_WANT_READ) {
 				// Return -1 for a nonfatal error, -2 for an error that should force the connection down.
